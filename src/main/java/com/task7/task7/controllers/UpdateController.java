@@ -21,7 +21,13 @@ public class UpdateController {
                                @RequestParam(value = "name", required = false, defaultValue = "mark") String name,
                                @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
 
-        Mark mark = carRepository.getMarkById(markId);
+        Mark mark;
+
+        try {
+            mark = carRepository.getMarkById(markId);
+        } catch (Exception e) {
+            return null;
+        }
 
         mark.setName(name);
         mark.setActive(isActive);
@@ -33,10 +39,16 @@ public class UpdateController {
 
     @PostMapping("/update/model/{modelId}")
     public ModelAuto updateModelAutoById(@PathVariable Long modelId,
-                                    @RequestParam(value = "name", required = false, defaultValue = "model") String name,
-                                    @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
+                                         @RequestParam(value = "name", required = false, defaultValue = "model") String name,
+                                         @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
 
-        ModelAuto modelAuto = carRepository.getModelAutoById(modelId);
+        ModelAuto modelAuto;
+
+        try {
+            modelAuto = carRepository.getModelAutoById(modelId);
+        } catch (Exception e) {
+            return null;
+        }
 
         modelAuto.setName(name);
         modelAuto.setActive(isActive);
@@ -53,7 +65,13 @@ public class UpdateController {
                                                @RequestParam(value = "periodBegin", required = false, defaultValue = "") String periodBegin,
                                                @RequestParam(value = "periodEnd", required = false, defaultValue = "") String periodEnd) {
 
-        Modification modification = carRepository.getModificationById(modificationId);
+        Modification modification;
+
+        try {
+            modification = carRepository.getModificationById(modificationId);
+        } catch (Exception e) {
+            return null;
+        }
 
         modification.setName(name);
         modification.setActive(isActive);

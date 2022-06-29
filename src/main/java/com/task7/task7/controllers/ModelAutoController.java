@@ -18,8 +18,13 @@ public class ModelAutoController {
 
     @GetMapping("/car/{markId}")
     public String printModelAuto(@PathVariable Long markId, Model model) {
-        model.addAttribute("listModelAuto", carRepository.getAllModelAutoByIdMark(markId));
-        model.addAttribute("markId", markId);
+
+        try {
+            model.addAttribute("listModelAuto", carRepository.getAllModelAutoByIdMark(markId));
+            model.addAttribute("markId", markId);
+        } catch (Exception e) {
+            return "redirect:/";
+        }
 
         return "modelAuto";
     }

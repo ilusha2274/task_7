@@ -17,9 +17,14 @@ public class ModificationController {
 
     @GetMapping("/car/{markId}/{modelId}")
     public String printModification(@PathVariable Long markId, @PathVariable Long modelId, Model model) {
-        model.addAttribute("listModification", carRepository.getAllModificationByIdModelAuto(modelId));
-        model.addAttribute("modelId", modelId);
-        model.addAttribute("markId", markId);
+
+        try {
+            model.addAttribute("listModification", carRepository.getAllModificationByIdModelAuto(modelId));
+            model.addAttribute("modelId", modelId);
+            model.addAttribute("markId", markId);
+        } catch (Exception e) {
+            return "redirect:/";
+        }
 
         return "modification";
     }
