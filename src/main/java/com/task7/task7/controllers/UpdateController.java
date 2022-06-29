@@ -17,7 +17,7 @@ public class UpdateController {
     CarRepository carRepository;
 
     @PostMapping("/update/mark/{markId}")
-    public void updateMarkById(@PathVariable Long markId,
+    public Mark updateMarkById(@PathVariable Long markId,
                                @RequestParam(value = "name", required = false, defaultValue = "mark") String name,
                                @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
 
@@ -27,10 +27,12 @@ public class UpdateController {
         mark.setActive(isActive);
 
         carRepository.saveOrUpdateMark(mark);
+
+        return mark;
     }
 
     @PostMapping("/update/model/{modelId}")
-    public void updateModelAutoById(@PathVariable Long modelId,
+    public ModelAuto updateModelAutoById(@PathVariable Long modelId,
                                     @RequestParam(value = "name", required = false, defaultValue = "model") String name,
                                     @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
 
@@ -40,6 +42,8 @@ public class UpdateController {
         modelAuto.setActive(isActive);
 
         carRepository.updateModelAuto(modelAuto);
+
+        return modelAuto;
     }
 
     @PostMapping("/update/modification/{modificationId}")
