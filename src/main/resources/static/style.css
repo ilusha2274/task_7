@@ -1,0 +1,354 @@
+html{
+    width:100%;
+    height:100%;
+    margin: 0;
+}
+
+body{
+    width:100%;
+    height:100%;
+    margin: 0;
+    display: flex;
+}
+
+::-webkit-scrollbar{
+    width: 8px;
+}
+
+::-webkit-scrollbar-track{
+    background: #fff;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 2px;
+    background: #e3ffca;
+}
+
+.main{
+    height: calc(100% - 300px);
+    width: 1000px;
+    display:flex;
+    margin-top:150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 15px 15px 15px;
+    box-sizing: border-box;
+}
+
+.main-box{
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 15px 15px 15px 15px;
+    position:relative;
+}
+
+.input-box{
+    width:100%;
+    height: 60px;
+    display:flex;
+    box-sizing: border-box;
+}
+
+.input{
+    width: calc(100% - 100px);
+    height: 100%;
+    margin: 0 0 0 3px;
+    color: #999999;
+    font-family: sans-serif;
+    font-size: 30px;
+    padding-top: 3px;
+    box-sizing: border-box;
+    border: 0px solid #fff;
+    border-radius: 5px;
+
+    outline: 3px solid #a3d279;
+}
+
+.input::placeholder {
+    color: #c3c3c3;
+}
+
+.input:focus::placeholder{
+    color: #dedede;
+}
+
+.input:focus{
+    outline: 3px solid #79a651;
+}
+
+.form-input{
+    display:flex;
+    width: 100%;
+    height: 100%;
+}
+
+.button{
+    width: 80px;
+    height: 100%;
+    background-color: #a3d279;
+    border-radius: 5px;
+    border: 0px solid #fff;
+    margin-left:20px;
+    color: #fff;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.button:hover{
+    background-color: #79a651;
+    color: #fff;
+}
+
+.list-book{
+    height: calc(100% - 150px);
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 0px 0px 5px 5px;
+    border: 3px solid #a3d279;
+    box-sizing: border-box;
+}
+
+.info-book{
+    width: 100%;
+    height: 35px;
+    border-radius: 5px 5px 0px 0px;
+    border-top: 3px solid #a3d279;
+    border-left: 3px solid #a3d279;
+    border-right: 3px solid #a3d279;
+    margin-top: 15px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.info-book-name{
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    color: #999999;
+    padding-left: 5px;
+    box-sizing: border-box;
+    margin:0;
+    font-size: 25px;
+}
+
+.info-book-date{
+    width: 30%;
+    height: 100%;
+    font-family: sans-serif;
+    color: #999999;
+    padding-left: 5px;
+    box-sizing: border-box;
+    margin:0;
+    font-size: 25px;
+}
+
+.label{
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
+    display: flex;
+    padding: 0;
+    background-color:#fff;
+    border: 0px solid #fff;
+    position:relative;
+}
+
+.label-info-book{
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
+    display: flex;
+    padding: 0;
+    background-color:#fff;
+    border: 0px solid #fff;
+    margin: 0;
+}
+
+.label-info-book:hover{
+    background-color: #e3ffca;
+}
+
+.label-info-book-name{
+    text-align: left;
+    width: 70%;
+    height: 100%;
+    font-family: sans-serif;
+    color: #999999;
+    padding-left: 5px;
+    box-sizing: border-box;
+    margin:0;
+    padding-top: 5px;
+    font-size: 21px;
+}
+
+.label-info-book-date{
+    text-align: left;
+    width: 30%;
+    height: 100%;
+    font-family: sans-serif;
+    color: #999999;
+    padding-left: 5px;
+    box-sizing: border-box;
+    margin:0;
+    padding-top: 5px;
+    font-size: 21px;
+}
+
+.trash{
+    width: 25px;
+    height: 25px;
+    fill: #999999;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.trash:hover{
+    fill: #000;
+    opacity:0.8;
+}
+
+.button-trash{
+    position:absolute;
+    right:0;
+    top:0;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 0px solid #fff;
+}
+
+.name-book{
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 30px;
+    font-family: sans-serif;
+}
+
+.text-book{
+    width: 100%;
+    height: calc(100% - 120px);
+
+    color: #999999;
+    font-family: sans-serif;
+    font-size: 30px;
+    padding-top: 3px;
+    box-sizing: border-box;
+    border: 0px solid #fff;
+    border-radius: 5px;
+    word-wrap: break-word;
+
+    outline: 3px solid #a3d279;
+}
+
+.text-book::placeholder {
+    color: #c3c3c3;
+}
+
+.text-book:focus::placeholder{
+    color: #dedede;
+}
+
+.text-book:focus{
+    outline: 3px solid #79a651;
+}
+
+.back{
+    text-decoration: none;
+    position:absolute;
+    bottom:10px;
+    right:10px;
+    width:80px;
+    padding-top: 10px;
+    height: 40px;
+    font-size: 15px;
+    color: #fff;
+    background: #a3d279;
+    text-align: center;
+    border-radius: 5px;
+    font-family: sans-serif;
+    cursor: pointer;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.back:hover{
+    background-color: #79a651;
+}
+
+input,textarea{
+    resize: none;
+    width:100%;
+    height: 100%;
+    color: #999999;
+    font-family: sans-serif;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 25px;
+    border: 0px solid #fff;
+    outline: 0px solid #79a651;
+}
+
+.button-save{
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    bottom:10px;
+    right:110px;
+    background-color: #a3d279;
+    border-radius: 5px;
+    border: 0px solid #fff;
+    margin-left:20px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.button-save:hover{
+    background-color: #79a651;
+}
+
+.name-directory{
+    width: 100%;
+    height: 40px;
+    color: #999999;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin:0;
+}
+
+.button-back{
+    text-decoration: none;
+    width:80px;
+    height: 60px;
+    font-size: 12px;
+    margin-left:20px;
+    color: #fff;
+    background: #a3d279;
+    text-align: center;
+    border-radius: 5px;
+    font-family: sans-serif;
+    cursor: pointer;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding-top: 25px;
+}
+
+.button-back:hover{
+    background-color: #79a651;
+}
+
+
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!--картинки-->
+    <svg display="none">
+        <symbol id="trash-can" viewBox="0 0 32 32">
+            <g>
+                <path class="cls-1" d="M24,31H8a3,3,0,0,1-3-3V9A1,1,0,0,1,7,9V28a1,1,0,0,0,1,1H24a1,1,0,0,0,1-1V9a1,1,0,0,1,2,0V28A3,3,0,0,1,24,31Z"/><path class="cls-1" d="M28,7H4A1,1,0,0,1,4,5H28a1,1,0,0,1,0,2Z"/><path class="cls-1" d="M20,7a1,1,0,0,1-1-1V3H13V6a1,1,0,0,1-2,0V2a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V6A1,1,0,0,1,20,7Z"/><path class="cls-1" d="M16,26a1,1,0,0,1-1-1V11a1,1,0,0,1,2,0V25A1,1,0,0,1,16,26Z"/><path class="cls-1" d="M21,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,21,24Z"/><path class="cls-1" d="M11,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,11,24Z"/>
+            </g>
+        </symbol>
+    </svg>
+
+    <div class="main">
+        <div class="main-box">
+
+            <div class="name-directory">Модификации</div>
+
+            <div style="width: 100%;height: 60px; display:flex;">
+
+                <form style="width: calc(100% - 100px); margin:0;" method="post" th:attr="action=@{/car/}+${markId}+@{/}+${modelId}" class="input-box">
+                    <input class="input" name="name" id="name" placeholder="Введите название новой модификации">
+                    <button class="button" type="submit">Добавить</button>
+                </form>
+
+                <a class="button-back" th:href="@{/car/}+${markId}">К моделям</a>
+
+            </div>
+
+            <div class="info-book">
+                <div class="info-book-name">Название</div>
+            </div>
+
+            <div class="list-book">
+
+                <th:block th:each="modification : ${listModification}">
+
+                    <div class="label">
+
+                        <div class="label-info-book">
+                            <div style="width: 100%;" class="label-info-book-name" th:text ="${modification.name}"></div>
+                        </div>
+
+                        <form method="post" th:attr="action=@{/car/}+${markId}+@{/}+${modelId}+@{/delete}">
+                            <input id="id" name="id" type="hidden" th:attr="value=${modification.id}">
+                            <button class="button-trash">
+                                <svg class="trash">
+                                    <use xlink:href="#trash-can"></use>
+                                </svg>
+                            </button>
+                        </form>
+
+                    </div>
+
+                </th:block>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
