@@ -21,20 +21,18 @@ public class UpdateController {
                                @RequestParam(value = "name", required = false, defaultValue = "mark") String name,
                                @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
 
-        Mark mark;
-
         try {
-            mark = carRepository.getMarkById(markId);
+            Mark mark = carRepository.getMarkById(markId);
+
+            mark.setName(name);
+            mark.setActive(isActive);
+
+            carRepository.saveOrUpdateMark(mark);
+
+            return mark;
         } catch (Exception e) {
             return null;
         }
-
-        mark.setName(name);
-        mark.setActive(isActive);
-
-        carRepository.saveOrUpdateMark(mark);
-
-        return mark;
     }
 
     @PostMapping("/update/model/{modelId}")
@@ -42,20 +40,18 @@ public class UpdateController {
                                          @RequestParam(value = "name", required = false, defaultValue = "model") String name,
                                          @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
 
-        ModelAuto modelAuto;
-
         try {
-            modelAuto = carRepository.getModelAutoById(modelId);
+            ModelAuto modelAuto = carRepository.getModelAutoById(modelId);
+
+            modelAuto.setName(name);
+            modelAuto.setActive(isActive);
+
+            carRepository.updateModelAuto(modelAuto);
+
+            return modelAuto;
         } catch (Exception e) {
             return null;
         }
-
-        modelAuto.setName(name);
-        modelAuto.setActive(isActive);
-
-        carRepository.updateModelAuto(modelAuto);
-
-        return modelAuto;
     }
 
     @PostMapping("/update/modification/{modificationId}")
@@ -65,24 +61,22 @@ public class UpdateController {
                                                @RequestParam(value = "periodBegin", required = false, defaultValue = "") String periodBegin,
                                                @RequestParam(value = "periodEnd", required = false, defaultValue = "") String periodEnd) {
 
-        Modification modification;
-
         try {
-            modification = carRepository.getModificationById(modificationId);
+            Modification modification = carRepository.getModificationById(modificationId);
+
+            modification.setName(name);
+            modification.setActive(isActive);
+            if (!periodBegin.equals(""))
+                modification.setPeriodBegin(periodBegin);
+            if (!periodEnd.equals(""))
+                modification.setPeriodEnd(periodEnd);
+
+            carRepository.updateModification(modification);
+
+            return modification;
         } catch (Exception e) {
             return null;
         }
-
-        modification.setName(name);
-        modification.setActive(isActive);
-        if (!periodBegin.equals(""))
-            modification.setPeriodBegin(periodBegin);
-        if (!periodEnd.equals(""))
-            modification.setPeriodEnd(periodEnd);
-
-        carRepository.updateModification(modification);
-
-        return modification;
     }
 
 }
