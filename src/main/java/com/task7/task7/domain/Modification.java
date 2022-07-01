@@ -1,8 +1,8 @@
 package com.task7.task7.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 public class Modification {
@@ -15,17 +15,28 @@ public class Modification {
 
     private boolean active;
 
-    private String periodBegin;
+    private int periodBegin;
 
-    private String periodEnd;
+    private int periodEnd;
+
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private ModelAuto modelAuto;
 
     public Modification() {
         this.active = true;
     }
 
     public Modification(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.active = true;
+    }
+
+    public Modification(String name, int periodBegin, int periodEnd) {
+        this.name = name.toLowerCase();
+        this.active = true;
+        this.periodBegin = periodBegin;
+        this.periodEnd = periodEnd;
     }
 
     public Long getId() {
@@ -52,20 +63,29 @@ public class Modification {
         this.active = active;
     }
 
-    public String getPeriodBegin() {
+    public int getPeriodBegin() {
         return periodBegin;
     }
 
-    public void setPeriodBegin(String periodBegin) {
+    public void setPeriodBegin(int periodBegin) {
         this.periodBegin = periodBegin;
     }
 
-    public String getPeriodEnd() {
+    public int getPeriodEnd() {
         return periodEnd;
     }
 
-    public void setPeriodEnd(String periodEnd) {
+    public void setPeriodEnd(int periodEnd) {
         this.periodEnd = periodEnd;
     }
 
+    @JsonIgnore
+    public ModelAuto getModelAuto() {
+        return modelAuto;
+    }
+
+    @JsonIgnore
+    public void setModelAuto(ModelAuto modelAuto) {
+        this.modelAuto = modelAuto;
+    }
 }

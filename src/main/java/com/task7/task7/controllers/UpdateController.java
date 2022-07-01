@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class UpdateController {
 
@@ -58,17 +61,17 @@ public class UpdateController {
     public Modification updateModificationById(@PathVariable Long modificationId,
                                                @RequestParam(value = "name", required = false, defaultValue = "modification") String name,
                                                @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive,
-                                               @RequestParam(value = "periodBegin", required = false, defaultValue = "") String periodBegin,
-                                               @RequestParam(value = "periodEnd", required = false, defaultValue = "") String periodEnd) {
+                                               @RequestParam(value = "periodBegin", required = false, defaultValue = "-1") int periodBegin,
+                                               @RequestParam(value = "periodEnd", required = false, defaultValue = "-1") int periodEnd) {
 
         try {
             Modification modification = carRepository.getModificationById(modificationId);
 
             modification.setName(name);
             modification.setActive(isActive);
-            if (!periodBegin.equals(""))
+            if (periodBegin != -1)
                 modification.setPeriodBegin(periodBegin);
-            if (!periodEnd.equals(""))
+            if (periodEnd != -1)
                 modification.setPeriodEnd(periodEnd);
 
             carRepository.updateModification(modification);
@@ -77,6 +80,38 @@ public class UpdateController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @PostMapping("/create")
+    public List<Mark> create() {
+        List<ModelAuto> modelAutoListAudi = new ArrayList<>();
+        List<Modification> modificationListAudi = new ArrayList<>();
+
+        modificationListAudi.add(new Modification("3D", 2010, 2015));
+        modificationListAudi.add(new Modification("5D", 2010, 2015));
+        modificationListAudi.add(new Modification("3D", 2014, 2018));
+        modificationListAudi.add(new Modification("5D", 2014, 2018));
+        modificationListAudi.add(new Modification("3D", 2018, 9999));
+        modificationListAudi.add(new Modification("5D", 2018, 9999));
+
+        modelAutoListAudi.add(new ModelAuto("a1", modificationListAudi));
+
+        carRepository.saveOrUpdateMark(new Mark("Audi", modelAutoListAudi));
+
+        List<ModelAuto> modelAutoListBmw = new ArrayList<>();
+        List<Modification> modificationListBmw = new ArrayList<>();
+
+        modificationListBmw.add(new Modification("3D", 2019, 2022));
+        modificationListBmw.add(new Modification("5D", 2019, 2022));
+        modificationListBmw.add(new Modification("3D", 2022, 9999));
+        modificationListBmw.add(new Modification("5D", 2022, 9999));
+
+        modelAutoListBmw.add(new ModelAuto("m8", modificationListBmw));
+
+        carRepository.saveOrUpdateMark(new Mark("Bmw", modelAutoListBmw));
+
+        return carRepository.getAllMark();
+
     }
 
 }

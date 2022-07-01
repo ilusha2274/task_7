@@ -103,4 +103,234 @@ public class CarService implements CarRepository {
         return modificationRepository.findById(id).get();
     }
 
+    @Override
+    public List<Mark> getByNameMark(String nameMark, int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = filterMark(markRepository.findByNameMark(nameMark, periodBegin, periodEnd));
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = mark.getModelAutoList();
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modelAuto.getModificationList(), periodBegin, periodEnd);
+
+                modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    @Override
+    public List<Mark> getByNameMarkNameModel(String nameMark, String nameModel, int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = filterMark(markRepository.findByNameMark(nameMark, periodBegin, periodEnd));
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = filterModelAuto(mark.getModelAutoList(), nameModel);
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modelAuto.getModificationList(), periodBegin, periodEnd);
+
+                modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    @Override
+    public List<Mark> getByNameMarkNameModification(String nameMark, String nameModification, int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = filterMark(markRepository.findByNameMark(nameMark, periodBegin, periodEnd));
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = mark.getModelAutoList();
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modelAuto.getModificationList(), periodBegin, periodEnd, nameModification);
+
+                modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    @Override
+    public List<Mark> getByNameMarkNameModelNameModification(String nameMark, String nameModel, String nameModification, int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = filterMark(markRepository.findByNameMark(nameMark, periodBegin, periodEnd));
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = filterModelAuto(mark.getModelAutoList(), nameModel);
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modelAuto.getModificationList(), periodBegin, periodEnd, nameModification);
+
+                modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    @Override
+    public List<Mark> getByNameModel(String nameModel, int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = getAllMark();
+        List<ModelAuto> modelAutoListResult = filterModelAuto(modelAutoRepository.findByNameModel(nameModel, periodBegin, periodEnd));
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = filterModelAutoNameMark(modelAutoListResult, mark.getName());
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modelAuto.getModificationList(), periodBegin, periodEnd);
+
+                modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            if (modelAutoList.size() != 0)
+                markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    @Override
+    public List<Mark> getByNameModelNameModification(String nameModel, String nameModification, int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = getAllMark();
+        List<ModelAuto> modelAutoListResult = filterModelAuto(modelAutoRepository.findByNameModel(nameModel, periodBegin, periodEnd));
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = filterModelAutoNameMark(modelAutoListResult, mark.getName());
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modelAuto.getModificationList(), periodBegin, periodEnd, nameModification);
+
+                modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            if (modelAutoList.size() != 0)
+                markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    @Override
+    public List<Mark> getByNameModification(String nameModification, int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = getAllMark();
+        List<Modification> modificationListResult = modificationRepository.findByNameModification(nameModification, periodBegin, periodEnd);
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = mark.getModelAutoList();
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modificationListResult, modelAuto.getName());
+
+                if (modificationList.size() != 0)
+                    modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            if (modelAutoResult.size() != 0)
+                markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    @Override
+    public List<Mark> getByDate(int periodBegin, int periodEnd) {
+        List<Mark> markListResult = new ArrayList<>();
+        List<Mark> marks = getAllMark();
+        List<Modification> modificationListResult = modificationRepository.findByDate(periodBegin, periodEnd);
+
+        for (Mark mark : marks) {
+            List<ModelAuto> modelAutoResult = new ArrayList<>();
+            List<ModelAuto> modelAutoList = mark.getModelAutoList();
+
+            for (ModelAuto modelAuto : modelAutoList) {
+                List<Modification> modificationList = filterModification(modificationListResult, modelAuto.getName());
+
+                if (modificationList.size() != 0)
+                    modelAutoResult.add(new ModelAuto(modelAuto.getId(), modelAuto.getName(), modelAuto.isActive(), modificationList, modelAuto.getMark()));
+            }
+
+            if (modelAutoResult.size() != 0)
+                markListResult.add(new Mark(mark.getId(), mark.getName(), mark.isActive(), modelAutoResult));
+        }
+
+        return markListResult;
+    }
+
+    private List<Mark> filterMark(List<Mark> marks) {
+        return marks
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private List<ModelAuto> filterModelAuto(List<ModelAuto> modelAutoList) {
+        return modelAutoList
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private List<ModelAuto> filterModelAutoNameMark(List<ModelAuto> modelAutoList, String nameMark) {
+        return modelAutoList
+                .stream()
+                .filter(modelAuto -> modelAuto.getMark().getName().equals(nameMark))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private List<ModelAuto> filterModelAuto(List<ModelAuto> modelAutoList, String nameModel) {
+        return modelAutoList
+                .stream()
+                .filter(modelAuto -> modelAuto.getName().equals(nameModel))
+                .collect(Collectors.toList());
+    }
+
+    private List<Modification> filterModification(List<Modification> modificationList, int periodBegin, int periodEnd) {
+        return modificationList
+                .stream()
+                .filter(modification -> modification.getPeriodBegin() >= periodBegin &&
+                        modification.getPeriodEnd() <= periodEnd)
+                .collect(Collectors.toList());
+    }
+
+    private List<Modification> filterModification(List<Modification> modificationList, int periodBegin, int periodEnd, String nameModification) {
+        return modificationList
+                .stream()
+                .filter(modification -> modification.getPeriodBegin() >= periodBegin &&
+                        modification.getPeriodEnd() <= periodEnd &&
+                        modification.getName().equals(nameModification))
+                .collect(Collectors.toList());
+    }
+
+    private List<Modification> filterModification(List<Modification> modificationList, String nameModel) {
+        return modificationList
+                .stream()
+                .filter(modification -> modification.getModelAuto().getName().equals(nameModel))
+                .collect(Collectors.toList());
+    }
 }

@@ -1,5 +1,7 @@
 package com.task7.task7.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,13 +20,31 @@ public class ModelAuto {
     @JoinColumn(name = "model_id")
     private List<Modification> modificationList;
 
+    @ManyToOne
+    @JoinColumn(name = "mark_id")
+    private Mark mark;
+
     public ModelAuto() {
         this.active = true;
     }
 
     public ModelAuto(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.active = true;
+    }
+
+    public ModelAuto(String name, List<Modification> modificationList) {
+        this.name = name.toLowerCase();
+        this.active = true;
+        this.modificationList = modificationList;
+    }
+
+    public ModelAuto(Long id, String name, boolean active, List<Modification> modificationList, Mark mark) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+        this.modificationList = modificationList;
+        this.mark = mark;
     }
 
     public Long getId() {
@@ -57,5 +77,15 @@ public class ModelAuto {
 
     public void setModificationList(List<Modification> modificationList) {
         this.modificationList = modificationList;
+    }
+
+    @JsonIgnore
+    public Mark getMark() {
+        return mark;
+    }
+
+    @JsonIgnore
+    public void setMark(Mark mark) {
+        this.mark = mark;
     }
 }

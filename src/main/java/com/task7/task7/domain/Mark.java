@@ -23,8 +23,22 @@ public class Mark {
     }
 
     public Mark(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
         this.active = true;
+    }
+
+    public Mark(String name, List<ModelAuto> modelAutoList) {
+        this.name = name.toUpperCase();
+        ;
+        this.active = true;
+        this.modelAutoList = modelAutoList;
+    }
+
+    public Mark(Long id, String name, boolean active, List<ModelAuto> modelAutoList) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+        this.modelAutoList = modelAutoList;
     }
 
     public Long getId() {
